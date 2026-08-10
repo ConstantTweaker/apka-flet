@@ -3,7 +3,15 @@ import time
 import requests
 import flet as ft
 
-def main(page: ft.Page):
+def background_poll():
+    while True:
+        time.sleep(0.5)
+        try:
+            update_state()
+        except Exception:
+            pass
+            
+    def main(page: ft.Page):
     page.title = "Panel Sterowania - Darts"
     page.bgcolor = "#0d1a2d"
     page.scroll = ft.ScrollMode.AUTO
@@ -97,13 +105,6 @@ def main(page: ft.Page):
         )
     )
 
-    def background_poll():
-        while True:
-            time.sleep(0.5)
-            try:
-                update_state()
-            except Exception:
-                pass
 
 if __name__ == '__main__':
     # Odpalamy pętlę w tle jako wątek daemon, żeby nie blokowała Fleta

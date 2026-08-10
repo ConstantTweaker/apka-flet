@@ -22,10 +22,11 @@ def update_state_ui():
     pass
 
 def main(page: ft.Page):
-    page.title = "Panel Sterowania - Darts"
+    page.title = "Scoreboard"
     page.bgcolor = "#0d1a2d"
     page.scroll = ft.ScrollMode.AUTO
     page.padding = 20
+    page.window_full_screen = True  # <--- To wywali paski na górze i dole
 
     txt_format = ft.TextField(label="Format Meczowy", hint_text="np. First to 8 Legs", bgcolor="#08101c", color="#fff", border_color="#1a365d")
     txt_p1 = ft.TextField(label="Gracz 1 Nazwa", hint_text="np. Peter Wright (SCO)", bgcolor="#08101c", color="#fff", border_color="#1a365d", expand=True)

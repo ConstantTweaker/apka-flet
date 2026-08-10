@@ -10,8 +10,12 @@ def background_poll():
             update_state()
         except Exception:
             pass
-            
-    def main(page: ft.Page):
+
+def update_state():
+    # Funkcja pomocnicza lub zmienne muszą być dostępne w odpowiednim zakresie
+    pass
+
+def main(page: ft.Page):
     page.title = "Panel Sterowania - Darts"
     page.bgcolor = "#0d1a2d"
     page.scroll = ft.ScrollMode.AUTO
@@ -30,7 +34,7 @@ def background_poll():
     def send_action(endpoint, data={}):
         try:
             requests.post(f"http://127.0.0.1:5000{endpoint}", json=data)
-            update_state()
+            update_state_ui()
         except Exception:
             pass
 
@@ -58,7 +62,7 @@ def background_poll():
     def do_reset(e):
         send_action("/reset_match")
 
-    def update_state():
+    def update_state_ui():
         try:
             res = requests.get("http://127.0.0.1:5000/get_state")
             st = res.json()
@@ -68,6 +72,10 @@ def background_poll():
             page.update()
         except Exception:
             pass
+
+    # Globalna referencja dla wątku w tle
+    global update_state
+    update_state = update_state_ui
 
     page.add(
         ft.Text("🎯 Panel Sterowania - Darts", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
@@ -105,11 +113,7 @@ def background_poll():
         )
     )
 
-
 if __name__ == '__main__':
-    # Odpalamy pętlę w tle jako wątek daemon, żeby nie blokowała Fleta
     t = threading.Thread(target=background_poll, daemon=True)
     t.start()
-    
-    # Startujemy apkę Fleta
     ft.app(target=main)

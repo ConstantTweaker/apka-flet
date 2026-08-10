@@ -3,16 +3,24 @@ import time
 import requests
 import flet as ft
 
+# Definiujemy obramowanie, które zadziała na mobile
+my_border = ft.border.Border(
+    top=ft.border.BorderSide(1, "#1a365d"),
+    bottom=ft.border.BorderSide(1, "#1a365d"),
+    left=ft.border.BorderSide(1, "#1a365d"),
+    right=ft.border.BorderSide(1, "#1a365d")
+)
+
 def background_poll():
     while True:
         time.sleep(0.5)
         try:
-            update_state()
+            update_state_ui()
         except Exception:
             pass
 
-def update_state():
-    # Funkcja pomocnicza lub zmienne muszą być dostępne w odpowiednim zakresie
+def update_state_ui():
+    # Placeholder - zostanie nadpisany przez funkcję z maina
     pass
 
 def main(page: ft.Page):
@@ -34,7 +42,7 @@ def main(page: ft.Page):
     def send_action(endpoint, data={}):
         try:
             requests.post(f"http://127.0.0.1:5000{endpoint}", json=data)
-            update_state_ui()
+            refresh_ui()
         except Exception:
             pass
 
@@ -62,7 +70,7 @@ def main(page: ft.Page):
     def do_reset(e):
         send_action("/reset_match")
 
-    def update_state_ui():
+    def refresh_ui():
         try:
             res = requests.get("http://127.0.0.1:5000/get_state")
             st = res.json()
@@ -73,9 +81,9 @@ def main(page: ft.Page):
         except Exception:
             pass
 
-    # Globalna referencja dla wątku w tle
-    global update_state
-    update_state = update_state_ui
+    # Przypisujemy naszą funkcję do globalnej zmiennej, żeby wątek ją widział
+    global update_state_ui
+    update_state_ui = refresh_ui
 
     page.add(
         ft.Text("🎯 Panel Sterowania - Darts", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
@@ -86,13 +94,13 @@ def main(page: ft.Page):
                 ft.Row([txt_stage, txt_subtext]),
                 ft.ElevatedButton("Zapisz ustawienia", on_click=save_settings, bgcolor="#00d4ff", color="#000")
             ]),
-            bgcolor="#102038", padding=15, border_radius=6, border=ft.border.all(1, "#1a365d")
+            bgcolor="#102038", padding=15, border_radius=6, border=my_border
         ),
         ft.Container(
             content=ft.Column([
                 ft.Container(
                     content=ft.Row([lbl_turn, lbl_legs], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                    bgcolor="#08101c", padding=12, border_radius=4, border=ft.border.all(1, "#1a365d")
+                    bgcolor="#08101c", padding=12, border_radius=4, border=my_border
                 ),
                 ft.Row([txt_custom, ft.ElevatedButton("Zatwierdź", on_click=submit_custom, bgcolor="#00d4ff", color="#000")]),
                 ft.Text("Szybkie przyciski:", size=13, weight=ft.FontWeight.BOLD, color="#8fa3c7"),
@@ -101,7 +109,7 @@ def main(page: ft.Page):
                     for p in [180, 140, 100, 85, 81, 60, 45, 41, 26, 0]
                 ])
             ]),
-            bgcolor="#102038", padding=15, border_radius=6, border=ft.border.all(1, "#1a365d"), margin=ft.margin.symmetric(vertical=15)
+            bgcolor="#102038", padding=15, border_radius=6, border=my_border, margin=ft.margin.symmetric(vertical=15)
         ),
         ft.Row([
             ft.ElevatedButton("↩ Cofnij", on_click=do_undo, bgcolor="#8b1e3f", color="#fff", expand=True),
@@ -109,7 +117,7 @@ def main(page: ft.Page):
         ]),
         ft.Container(
             content=ft.Text("Link do OBS: http://127.0.0.1:5000/scoreboard", size=13, color="#8fa3c7", text_align=ft.TextAlign.CENTER),
-            bgcolor="#08101c", padding=10, border_radius=4, border=ft.border.all(1, "#1a365d"), margin=ft.margin.only(top=15)
+            bgcolor="#08101c", padding=10, border_radius=4, border=my_border, margin=ft.margin.only(top=15)
         )
     )
 

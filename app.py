@@ -3,7 +3,6 @@ import time
 import requests
 import flet as ft
 
-# Definiujemy obramowanie, które zadziała na mobile
 my_border = ft.border.Border(
     top=ft.border.BorderSide(1, "#1a365d"),
     bottom=ft.border.BorderSide(1, "#1a365d"),
@@ -23,7 +22,7 @@ def update_state_ui():
     pass
 
 def main(page: ft.Page):
-    page.title = "Panel Sterowania - Darts"
+    page.title = "Scoreboard"
     page.bgcolor = "#0d1a2d"
     page.scroll = ft.ScrollMode.AUTO
     page.padding = 20
@@ -84,7 +83,7 @@ def main(page: ft.Page):
     update_state_ui = refresh_ui
 
     page.add(
-        ft.Text("🎯 Panel Sterowania - Darts", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
+        ft.Text("🎯 Scoreboard", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
         ft.Container(
             content=ft.Column([
                 txt_format,
@@ -107,7 +106,7 @@ def main(page: ft.Page):
                     for p in [180, 140, 100, 85, 81, 60, 45, 41, 26, 0]
                 ])
             ]),
-            bgcolor="#102038", padding=15, border_radius=6, border=my_border, margin=ft.margin.only(top=15, bottom=15)
+            bgcolor="#102038", padding=15, border_radius=6, border=my_border
         ),
         ft.Row([
             ft.ElevatedButton("↩ Cofnij", on_click=do_undo, bgcolor="#8b1e3f", color="#fff", expand=True),
@@ -115,7 +114,7 @@ def main(page: ft.Page):
         ]),
         ft.Container(
             content=ft.Text("Link do OBS: http://127.0.0.1:5000/scoreboard", size=13, color="#8fa3c7", text_align=ft.TextAlign.CENTER),
-            bgcolor="#08101c", padding=10, border_radius=4, border=my_border, margin=ft.margin.only(top=15)
+            bgcolor="#08101c", padding=10, border_radius=4, border=my_border
         )
     )
 

@@ -14,11 +14,8 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install flet requests
-
       - name: Accept Android licenses
-  	run: yes | flutter doctor --android-licenses
+        run: yes | flutter doctor --android-licenses
 
       - name: Build APK
         run: echo "y" | flet build apk --module-name app
@@ -28,4 +25,3 @@ jobs:
         with:
           name: release-apk
           path: build/apk/*.apk
-

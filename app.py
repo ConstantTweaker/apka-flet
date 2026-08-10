@@ -20,7 +20,6 @@ def background_poll():
             pass
 
 def update_state_ui():
-    # Placeholder - zostanie nadpisany przez funkcję z maina
     pass
 
 def main(page: ft.Page):
@@ -81,7 +80,6 @@ def main(page: ft.Page):
         except Exception:
             pass
 
-    # Przypisujemy naszą funkcję do globalnej zmiennej, żeby wątek ją widział
     global update_state_ui
     update_state_ui = refresh_ui
 
@@ -109,7 +107,7 @@ def main(page: ft.Page):
                     for p in [180, 140, 100, 85, 81, 60, 45, 41, 26, 0]
                 ])
             ]),
-            bgcolor="#102038", padding=15, border_radius=6, border=my_border, margin=ft.margin.symmetric(vertical=15)
+            bgcolor="#102038", padding=15, border_radius=6, border=my_border, margin=ft.margin.only(top=15, bottom=15)
         ),
         ft.Row([
             ft.ElevatedButton("↩ Cofnij", on_click=do_undo, bgcolor="#8b1e3f", color="#fff", expand=True),

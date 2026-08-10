@@ -1,3 +1,4 @@
+import threading
 import time
 import requests
 import flet as ft
@@ -104,7 +105,10 @@ def main(page: ft.Page):
             except Exception:
                 pass
 
-    ft.app(target=main)
-
 if __name__ == '__main__':
-    background_poll()
+    # Odpalamy pętlę w tle jako wątek daemon, żeby nie blokowała Fleta
+    t = threading.Thread(target=background_poll, daemon=True)
+    t.start()
+    
+    # Startujemy apkę Fleta
+    ft.app(target=main)

@@ -22,7 +22,7 @@ def update_state_ui():
     pass
 
 def main(page: ft.Page):
-    page.title = "Scoreboard"
+    page.title = "Panel Sterowania - Darts"
     page.bgcolor = "#0d1a2d"
     page.scroll = ft.ScrollMode.AUTO
     page.padding = 20
@@ -83,7 +83,7 @@ def main(page: ft.Page):
     update_state_ui = refresh_ui
 
     page.add(
-        ft.Text("🎯 Scoreboard", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
+        ft.Text("🎯 Panel Sterowania - Darts", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
         ft.Container(
             content=ft.Column([
                 txt_format,

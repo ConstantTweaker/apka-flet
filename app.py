@@ -26,7 +26,6 @@ def main(page: ft.Page):
     page.bgcolor = "#0d1a2d"
     page.scroll = ft.ScrollMode.AUTO
     page.padding = 20
-    page.window_full_screen = True  # <--- To wywali paski na górze i dole
 
     txt_format = ft.TextField(label="Format Meczowy", hint_text="np. First to 8 Legs", bgcolor="#08101c", color="#fff", border_color="#1a365d")
     txt_p1 = ft.TextField(label="Gracz 1 Nazwa", hint_text="np. Peter Wright (SCO)", bgcolor="#08101c", color="#fff", border_color="#1a365d", expand=True)
@@ -84,7 +83,7 @@ def main(page: ft.Page):
     update_state_ui = refresh_ui
 
     page.add(
-        ft.Text("🎯 Panel Sterowania - Darts", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
+        ft.Text("🎯 Scoreboard", size=22, weight=ft.FontWeight.BOLD, color="#00d4ff"),
         ft.Container(
             content=ft.Column([
                 txt_format,
@@ -100,12 +99,7 @@ def main(page: ft.Page):
                     content=ft.Row([lbl_turn, lbl_legs], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                     bgcolor="#08101c", padding=12, border_radius=4, border=my_border
                 ),
-                ft.Row([txt_custom, ft.ElevatedButton("Zatwierdź", on_click=submit_custom, bgcolor="#00d4ff", color="#000")]),
-                ft.Text("Szybkie przyciski:", size=13, weight=ft.FontWeight.BOLD, color="#8fa3c7"),
-                ft.ResponsiveRow([
-                    ft.Container(ft.ElevatedButton(str(p), on_click=lambda e, pts=p: submit_pts(pts), bgcolor="#152a4a", color="#fff", width=70), col=2)
-                    for p in [180, 140, 100, 85, 81, 60, 45, 41, 26, 0]
-                ])
+                ft.Row([txt_custom, ft.ElevatedButton("Zatwierdź", on_click=submit_custom, bgcolor="#00d4ff", color="#000")])
             ]),
             bgcolor="#102038", padding=15, border_radius=6, border=my_border
         ),
